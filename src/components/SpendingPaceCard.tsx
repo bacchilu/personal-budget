@@ -11,7 +11,7 @@ export const SpendingPaceCard = function () {
             <Stack direction="row" sx={{alignItems: 'flex-end', justifyContent: 'space-between', mt: 1}}>
                 <Box>
                     <Typography variant="h4" sx={{fontWeight: 750}}>
-                        24%
+                        47%
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         of your weekly plan
@@ -21,7 +21,7 @@ export const SpendingPaceCard = function () {
             </Stack>
             <LinearProgress
                 variant="determinate"
-                value={24}
+                value={47}
                 sx={{
                     height: 9,
                     borderRadius: 20,
@@ -36,13 +36,13 @@ export const SpendingPaceCard = function () {
                     <Typography variant="caption" color="text.secondary">
                         Daily allowance
                     </Typography>
-                    <Typography sx={{fontWeight: 700}}>75,55 €</Typography>
+                    <Typography sx={{fontWeight: 700}}>28,05 €</Typography>
                 </Box>
                 <Box sx={{textAlign: 'right'}}>
                     <Typography variant="caption" color="text.secondary">
                         Weekly spending plan
                     </Typography>
-                    <Typography sx={{fontWeight: 700}}>400,00 €</Typography>
+                    <Typography sx={{fontWeight: 700}}>210,00 €</Typography>
                 </Box>
             </Stack>
         </Paper>

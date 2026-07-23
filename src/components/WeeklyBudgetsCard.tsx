@@ -4,9 +4,9 @@ import {Box, Button, IconButton, LinearProgress, Paper, Stack, Typography} from 
 import {cardStyle} from './cardStyle';
 
 const budgets = [
-    {name: 'Groceries', spent: '48,60 €', total: '180 €', value: 27, color: '#3d8064'},
-    {name: 'Dining out', spent: '34 €', total: '100 €', value: 34, color: '#cf7a31'},
-    {name: 'Transport', spent: '2,20 €', total: '70 €', value: 3, color: '#6e62aa'}
+    {name: 'Groceries', spent: '48,60 €', total: '100 €', value: 49, color: '#3d8064'},
+    {name: 'Dining out', spent: '34 €', total: '60 €', value: 57, color: '#cf7a31'},
+    {name: 'Transport', spent: '2,20 €', total: '30 €', value: 7, color: '#6e62aa'}
 ];
 
 export const WeeklyBudgetsCard = function () {

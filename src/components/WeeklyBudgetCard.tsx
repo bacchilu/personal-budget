@@ -18,7 +18,7 @@ export const WeeklyBudgetCard = function () {
         >
             <Typography sx={{color: '#c8ddd6', fontWeight: 600}}>Left in this week's budget</Typography>
             <Typography variant="h2" component="p" sx={{fontWeight: 750, letterSpacing: '-0.04em', mt: 1, mb: 3}}>
-                302,21 €
+                112,21 €
             </Typography>
 
             <Divider sx={{borderColor: 'rgba(255,255,255,0.14)', mb: 2.5}} />
@@ -34,7 +34,7 @@ export const WeeklyBudgetCard = function () {
                         <CalendarMonthRounded sx={{fontSize: 18}} />
                         <Typography variant="body2">Weekly limit</Typography>
                     </Stack>
-                    <Typography sx={{fontWeight: 700, mt: 0.5}}>400,00 €</Typography>
+                    <Typography sx={{fontWeight: 700, mt: 0.5}}>210,00 €</Typography>
                 </Box>
                 <Box>
                     <Stack direction="row" spacing={0.75} sx={{alignItems: 'center', color: '#b9d3ca'}}>

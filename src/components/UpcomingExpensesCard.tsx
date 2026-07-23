@@ -23,7 +23,7 @@ export const UpcomingExpensesCard = function () {
             </Stack>
             <Divider sx={{my: 2}} />
             <Typography variant="body2" sx={{color: '#9a5a21', fontWeight: 650}}>
-                Dining out has 66 € left for the rest of this week.
+                Dining out has 26 € left for the rest of this week.
             </Typography>
         </Paper>
     );
