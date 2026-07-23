@@ -5,14 +5,25 @@ import {
     SubscriptionsRounded
 } from '@mui/icons-material';
 import {Avatar, Box, Divider, Paper, Stack, Typography} from '@mui/material';
+import Decimal from 'decimal.js';
 
+import {formatEuro} from '../utils/formatEuro';
 import {cardStyle} from './cardStyle';
 
-const transactions = [
+interface Transaction {
+    merchant: string;
+    detail: string;
+    amount: Decimal;
+    icon: typeof ShoppingBasketRounded;
+    color: string;
+    background: string;
+}
+
+const transactions: Transaction[] = [
     {
         merchant: 'Coop supermarket',
         detail: 'Groceries · Today, 10:42',
-        amount: '48,60 €',
+        amount: new Decimal('48.60'),
         icon: ShoppingBasketRounded,
         color: '#28694f',
         background: '#e5f4ec'
@@ -20,7 +31,7 @@ const transactions = [
     {
         merchant: 'Netflix',
         detail: 'Subscriptions · Yesterday, 22:01',
-        amount: '12,99 €',
+        amount: new Decimal('12.99'),
         icon: SubscriptionsRounded,
         color: '#8c3b4a',
         background: '#fae9ed'
@@ -28,7 +39,7 @@ const transactions = [
     {
         merchant: 'Sushi House',
         detail: 'Dining out · Monday, 19:36',
-        amount: '34,00 €',
+        amount: new Decimal('34.00'),
         icon: RestaurantRounded,
         color: '#8a5523',
         background: '#fbefdf'
@@ -36,7 +47,7 @@ const transactions = [
     {
         merchant: 'Metro ticket',
         detail: 'Transport · Monday, 08:12',
-        amount: '2,20 €',
+        amount: new Decimal('2.20'),
         icon: DirectionsBusRounded,
         color: '#64509c',
         background: '#eeeafd'
@@ -44,6 +55,8 @@ const transactions = [
 ];
 
 export const WeeklyTransactionsCard = function () {
+    const total: Decimal = transactions.reduce((sum, transaction) => sum.plus(transaction.amount), new Decimal(0));
+
     return (
         <Paper variant="outlined" sx={{...cardStyle, overflow: 'hidden'}}>
             <Box sx={{px: {xs: 2.5, sm: 3}, py: 2.5}}>
@@ -51,7 +64,7 @@ export const WeeklyTransactionsCard = function () {
                     This week's transactions
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Monday 20 – Sunday 26 July · 4 transactions · total 97,79 €
+                    Monday 20 – Sunday 26 July · {transactions.length} transactions · total {formatEuro(total)}
                 </Typography>
             </Box>
             <Divider />
@@ -85,7 +98,7 @@ export const WeeklyTransactionsCard = function () {
                                 </Typography>
                             </Box>
                             <Typography sx={{fontWeight: 750, whiteSpace: 'nowrap', color: '#303744'}}>
-                                {transaction.amount}
+                                {formatEuro(transaction.amount)}
                             </Typography>
                         </Stack>
                         {index < transactions.length - 1 && <Divider sx={{ml: {xs: 9, sm: 10.5}}} />}

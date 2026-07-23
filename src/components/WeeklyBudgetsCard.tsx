@@ -1,12 +1,14 @@
 import {MoreHorizRounded} from '@mui/icons-material';
 import {Box, Button, IconButton, LinearProgress, Paper, Stack, Typography} from '@mui/material';
+import Decimal from 'decimal.js';
 
+import {formatEuro} from '../utils/formatEuro';
 import {cardStyle} from './cardStyle';
 
 const budgets = [
-    {name: 'Groceries', spent: '48,60 €', total: '100 €', value: 49, color: '#3d8064'},
-    {name: 'Dining out', spent: '34 €', total: '60 €', value: 57, color: '#cf7a31'},
-    {name: 'Transport', spent: '2,20 €', total: '30 €', value: 7, color: '#6e62aa'}
+    {name: 'Groceries', spent: new Decimal('48.60'), total: new Decimal('100.00'), color: '#3d8064'},
+    {name: 'Dining out', spent: new Decimal('34.00'), total: new Decimal('60.00'), color: '#cf7a31'},
+    {name: 'Transport', spent: new Decimal('2.20'), total: new Decimal('30.00'), color: '#6e62aa'}
 ];
 
 export const WeeklyBudgetsCard = function () {
@@ -34,12 +36,12 @@ export const WeeklyBudgetsCard = function () {
                                 {budget.name}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {budget.spent} / {budget.total}
+                                {formatEuro(budget.spent)} / {formatEuro(budget.total)}
                             </Typography>
                         </Stack>
                         <LinearProgress
                             variant="determinate"
-                            value={budget.value}
+                            value={budget.spent.dividedBy(budget.total).times(100).toNumber()}
                             sx={{
                                 height: 7,
                                 borderRadius: 20,

@@ -1,8 +1,17 @@
 import {Box, Chip, LinearProgress, Paper, Stack, Typography} from '@mui/material';
+import Decimal from 'decimal.js';
 
+import {formatEuro} from '../utils/formatEuro';
 import {cardStyle} from './cardStyle';
 
 export const SpendingPaceCard = function () {
+    const weeklyLimit: Decimal = new Decimal('210.00');
+    const spent: Decimal = new Decimal('97.79');
+    const remainingDays: number = 4;
+    const remaining: Decimal = weeklyLimit.minus(spent);
+    const spendingPercentage: Decimal = spent.dividedBy(weeklyLimit).times(100).toDecimalPlaces(0);
+    const dailyAllowance: Decimal = remaining.dividedBy(remainingDays);
+
     return (
         <Paper variant="outlined" sx={{...cardStyle, p: {xs: 3, md: 4}}}>
             <Typography variant="overline" sx={{color: 'text.secondary', fontWeight: 700, letterSpacing: 1}}>
@@ -11,7 +20,7 @@ export const SpendingPaceCard = function () {
             <Stack direction="row" sx={{alignItems: 'flex-end', justifyContent: 'space-between', mt: 1}}>
                 <Box>
                     <Typography variant="h4" sx={{fontWeight: 750}}>
-                        47%
+                        {spendingPercentage.toFixed(0)}%
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         of your weekly plan
@@ -21,7 +30,7 @@ export const SpendingPaceCard = function () {
             </Stack>
             <LinearProgress
                 variant="determinate"
-                value={47}
+                value={spendingPercentage.toNumber()}
                 sx={{
                     height: 9,
                     borderRadius: 20,
@@ -36,13 +45,13 @@ export const SpendingPaceCard = function () {
                     <Typography variant="caption" color="text.secondary">
                         Daily allowance
                     </Typography>
-                    <Typography sx={{fontWeight: 700}}>28,05 €</Typography>
+                    <Typography sx={{fontWeight: 700}}>{formatEuro(dailyAllowance)}</Typography>
                 </Box>
                 <Box sx={{textAlign: 'right'}}>
                     <Typography variant="caption" color="text.secondary">
                         Weekly spending plan
                     </Typography>
-                    <Typography sx={{fontWeight: 700}}>210,00 €</Typography>
+                    <Typography sx={{fontWeight: 700}}>{formatEuro(weeklyLimit)}</Typography>
                 </Box>
             </Stack>
         </Paper>

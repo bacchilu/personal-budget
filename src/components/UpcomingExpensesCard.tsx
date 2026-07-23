@@ -1,9 +1,15 @@
 import {CalendarMonthRounded} from '@mui/icons-material';
 import {Avatar, Box, Divider, Paper, Stack, Typography} from '@mui/material';
+import Decimal from 'decimal.js';
 
+import {formatEuro} from '../utils/formatEuro';
 import {cardStyle} from './cardStyle';
 
 export const UpcomingExpensesCard = function () {
+    const internetBill: Decimal = new Decimal('29.90');
+    const diningBudget: Decimal = new Decimal('60.00');
+    const diningSpent: Decimal = new Decimal('34.00');
+
     return (
         <Paper variant="outlined" sx={{...cardStyle, p: 3}}>
             <Typography variant="h6" component="h2" sx={{fontWeight: 750, mb: 2}}>
@@ -19,11 +25,11 @@ export const UpcomingExpensesCard = function () {
                         Due Friday
                     </Typography>
                 </Box>
-                <Typography sx={{fontWeight: 750}}>29,90 €</Typography>
+                <Typography sx={{fontWeight: 750}}>{formatEuro(internetBill)}</Typography>
             </Stack>
             <Divider sx={{my: 2}} />
             <Typography variant="body2" sx={{color: '#9a5a21', fontWeight: 650}}>
-                Dining out has 26 € left for the rest of this week.
+                Dining out has {formatEuro(diningBudget.minus(diningSpent))} left for the rest of this week.
             </Typography>
         </Paper>
     );
