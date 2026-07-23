@@ -1,5 +1,7 @@
 {
   "name": "personal-budget",
+  "description": "A week-oriented personal expense budgeting app.",
+  "author": "Luca Bacchi <bacchilu@gmail.com>",
   "private": true,
   "version": "1.0.0",
   "type": "module",

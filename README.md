@@ -1,75 +1,49 @@
-# React + TypeScript + Vite
+# Personal Budget
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal Budget is a week-oriented budgeting app focused exclusively on
+expenses. It is designed around a Monday-to-Sunday budget cycle, helping users
+understand how much they can still spend, where their money went, and which
+expenses are coming up.
 
-Currently, two official plugins are available:
+The project is currently a responsive UI prototype. It uses hardcoded mock data
+to explore the layout and product direction; buttons, navigation, persistence,
+and authentication are not implemented yet.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Current mock
 
-## React Compiler
+The dashboard currently explores:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- a weekly spending limit and remaining budget;
+- the amount spent and number of transactions;
+- spending pace and suggested daily allowance;
+- every expense recorded during the current week;
+- category-specific weekly limits;
+- upcoming expenses and budget warnings; and
+- responsive desktop and mobile layouts.
 
-## Expanding the ESLint configuration
+All transaction amounts are expenses and are displayed as positive values. The
+app does not track income.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Technology
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React
+- TypeScript
+- Vite
+- Material UI
+- Emotion
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Requirements
 
+- Node.js `20.19+` or `22.12+`
+- npm
+
+### Install and run
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+Vite will print the local development URL in the terminal.

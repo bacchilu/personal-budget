@@ -42,7 +42,7 @@ export const App = function () {
                                 <AccountBalanceWalletRounded sx={{fontSize: 20}} />
                             </Avatar>
                             <Typography variant="h6" component="div" sx={{fontWeight: 750, letterSpacing: '-0.02em'}}>
-                                Willow
+                                Personal Budget
                             </Typography>
 
                             <Stack
