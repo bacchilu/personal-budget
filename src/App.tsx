@@ -1,16 +1,9 @@
-import {
-    AccountBalanceWalletRounded,
-    AddRounded,
-    CalendarMonthRounded,
-    NotificationsNoneRounded,
-    SettingsRounded
-} from '@mui/icons-material';
+import {AccountBalanceWalletRounded, NotificationsNoneRounded, SettingsRounded} from '@mui/icons-material';
 import {
     AppBar,
     Avatar,
     Box,
     Button,
-    Chip,
     Container,
     CssBaseline,
     IconButton,
@@ -23,6 +16,7 @@ import {SpendingPaceCard} from './components/SpendingPaceCard';
 import {UpcomingExpensesCard} from './components/UpcomingExpensesCard';
 import {WeeklyBudgetCard} from './components/WeeklyBudgetCard';
 import {WeeklyBudgetsCard} from './components/WeeklyBudgetsCard';
+import {WeeklyHeader} from './components/WeeklyHeader';
 import {WeeklyTransactionsCard} from './components/WeeklyTransactionsCard';
 
 export const App = function () {
@@ -69,47 +63,7 @@ export const App = function () {
                 <Box component="main">
                     <Container maxWidth="lg" sx={{py: {xs: 3, md: 5}}}>
                         <Stack spacing={3}>
-                            <Stack
-                                direction={{xs: 'column', sm: 'row'}}
-                                spacing={2}
-                                sx={{alignItems: {xs: 'stretch', sm: 'center'}, justifyContent: 'space-between'}}
-                            >
-                                <Box>
-                                    <Stack direction="row" spacing={1} sx={{alignItems: 'center', mb: 0.75}}>
-                                        <Typography
-                                            variant="h4"
-                                            component="h1"
-                                            sx={{fontWeight: 750, letterSpacing: '-0.03em'}}
-                                        >
-                                            This week
-                                        </Typography>
-                                        <Chip
-                                            label="Mock data"
-                                            size="small"
-                                            sx={{bgcolor: '#eceef2', color: '#646b78', fontWeight: 600}}
-                                        />
-                                    </Stack>
-                                    <Typography color="text.secondary">Week 30 · 20–26 July · 4 days left</Typography>
-                                </Box>
-
-                                <Stack direction="row" spacing={1.25}>
-                                    <Button
-                                        variant="outlined"
-                                        startIcon={<CalendarMonthRounded />}
-                                        sx={{borderColor: '#d8dce3', color: '#3b4351', bgcolor: '#fff'}}
-                                    >
-                                        20–26 Jul
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        startIcon={<AddRounded />}
-                                        sx={{bgcolor: '#315e52', boxShadow: 'none', '&:hover': {bgcolor: '#315e52'}}}
-                                    >
-                                        Add transaction
-                                    </Button>
-                                </Stack>
-                            </Stack>
-
+                            <WeeklyHeader />
                             <Box
                                 sx={{
                                     display: 'grid',

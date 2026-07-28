@@ -1,0 +1,39 @@
+import {AddRounded, CalendarMonthRounded} from '@mui/icons-material';
+import {Box, Button, Chip, Stack, Typography} from '@mui/material';
+
+export const WeeklyHeader = function () {
+    return (
+        <Stack
+            direction={{xs: 'column', sm: 'row'}}
+            spacing={2}
+            sx={{alignItems: {xs: 'stretch', sm: 'center'}, justifyContent: 'space-between'}}
+        >
+            <Box>
+                <Stack direction="row" spacing={1} sx={{alignItems: 'center', mb: 0.75}}>
+                    <Typography variant="h4" component="h1" sx={{fontWeight: 750, letterSpacing: '-0.03em'}}>
+                        This week
+                    </Typography>
+                    <Chip label="Mock data" size="small" sx={{bgcolor: '#eceef2', color: '#646b78', fontWeight: 600}} />
+                </Stack>
+                <Typography color="text.secondary">Week 30 · 20–26 July · 4 days left</Typography>
+            </Box>
+
+            <Stack direction="row" spacing={1.25}>
+                <Button
+                    variant="outlined"
+                    startIcon={<CalendarMonthRounded />}
+                    sx={{borderColor: '#d8dce3', color: '#3b4351', bgcolor: '#fff'}}
+                >
+                    20–26 Jul
+                </Button>
+                <Button
+                    variant="contained"
+                    startIcon={<AddRounded />}
+                    sx={{bgcolor: '#315e52', boxShadow: 'none', '&:hover': {bgcolor: '#315e52'}}}
+                >
+                    Add transaction
+                </Button>
+            </Stack>
+        </Stack>
+    );
+};
