@@ -1,13 +1,15 @@
 import {CalendarMonthRounded, ReceiptLongRounded, TrendingDownRounded} from '@mui/icons-material';
 import {Box, Divider, Paper, Stack, Typography} from '@mui/material';
-import Decimal from 'decimal.js';
+import type Decimal from 'decimal.js';
 
+import {transactions} from '../data/transactions';
+import {weeklyLimit} from '../data/weeklyLimit';
 import {formatEuro} from '../utils/formatEuro';
+import {calculateTransactionsTotal} from '../utils/transactionCalculations';
 import {cardStyle} from './cardStyle';
 
 export const WeeklyBudgetCard = function () {
-    const weeklyLimit: Decimal = new Decimal('210.00');
-    const spent: Decimal = new Decimal('97.79');
+    const spent: Decimal = calculateTransactionsTotal(transactions);
 
     return (
         <Paper
@@ -53,7 +55,7 @@ export const WeeklyBudgetCard = function () {
                         <ReceiptLongRounded sx={{fontSize: 18}} />
                         <Typography variant="body2">Transactions</Typography>
                     </Stack>
-                    <Typography sx={{fontWeight: 700, mt: 0.5}}>4 this week</Typography>
+                    <Typography sx={{fontWeight: 700, mt: 0.5}}>{transactions.length} this week</Typography>
                 </Box>
             </Box>
         </Paper>

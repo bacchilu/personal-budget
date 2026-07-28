@@ -1,61 +1,16 @@
-import {
-    DirectionsBusRounded,
-    RestaurantRounded,
-    ShoppingBasketRounded,
-    SubscriptionsRounded
-} from '@mui/icons-material';
 import {Avatar, Box, Divider, Paper, Stack, Typography} from '@mui/material';
 import Decimal from 'decimal.js';
 
+import {categories} from '../data/categories';
+import {transactions} from '../data/transactions';
+import type {Category} from '../types/Category';
+import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
+import {calculateTransactionsTotal} from '../utils/transactionCalculations';
 import {cardStyle} from './cardStyle';
 
-interface Transaction {
-    merchant: string;
-    detail: string;
-    amount: Decimal;
-    icon: typeof ShoppingBasketRounded;
-    color: string;
-    background: string;
-}
-
-const transactions: Transaction[] = [
-    {
-        merchant: 'Coop supermarket',
-        detail: 'Groceries · Today, 10:42',
-        amount: new Decimal('48.60'),
-        icon: ShoppingBasketRounded,
-        color: '#28694f',
-        background: '#e5f4ec'
-    },
-    {
-        merchant: 'Netflix',
-        detail: 'Subscriptions · Yesterday, 22:01',
-        amount: new Decimal('12.99'),
-        icon: SubscriptionsRounded,
-        color: '#8c3b4a',
-        background: '#fae9ed'
-    },
-    {
-        merchant: 'Sushi House',
-        detail: 'Dining out · Monday, 19:36',
-        amount: new Decimal('34.00'),
-        icon: RestaurantRounded,
-        color: '#8a5523',
-        background: '#fbefdf'
-    },
-    {
-        merchant: 'Metro ticket',
-        detail: 'Transport · Monday, 08:12',
-        amount: new Decimal('2.20'),
-        icon: DirectionsBusRounded,
-        color: '#64509c',
-        background: '#eeeafd'
-    }
-];
-
 export const WeeklyTransactionsCard = function () {
-    const total: Decimal = transactions.reduce((sum, transaction) => sum.plus(transaction.amount), new Decimal(0));
+    const total: Decimal = calculateTransactionsTotal(transactions);
 
     return (
         <Paper variant="outlined" sx={{...cardStyle, overflow: 'hidden'}}>
@@ -69,8 +24,16 @@ export const WeeklyTransactionsCard = function () {
             </Box>
             <Divider />
 
-            {transactions.map((transaction, index) => {
-                const TransactionIcon = transaction.icon;
+            {transactions.map((transaction: Transaction, index: number) => {
+                const category: Category | undefined = categories.find(
+                    (category: Category) => category.id === transaction.categoryId
+                );
+
+                if (category === undefined) {
+                    throw new Error(`Unknown transaction category: ${transaction.categoryId}`);
+                }
+
+                const TransactionIcon = category.icon;
 
                 return (
                     <Box key={transaction.merchant}>
@@ -83,8 +46,8 @@ export const WeeklyTransactionsCard = function () {
                                 sx={{
                                     width: 42,
                                     height: 42,
-                                    color: transaction.color,
-                                    bgcolor: transaction.background
+                                    color: category.color,
+                                    bgcolor: category.background
                                 }}
                             >
                                 <TransactionIcon sx={{fontSize: 21}} />
@@ -94,7 +57,7 @@ export const WeeklyTransactionsCard = function () {
                                     {transaction.merchant}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" noWrap>
-                                    {transaction.detail}
+                                    {category.name} · {transaction.detail}
                                 </Typography>
                             </Box>
                             <Typography sx={{fontWeight: 750, whiteSpace: 'nowrap', color: '#303744'}}>

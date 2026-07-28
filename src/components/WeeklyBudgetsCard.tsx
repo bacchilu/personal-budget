@@ -1,15 +1,37 @@
 import {MoreHorizRounded} from '@mui/icons-material';
 import {Box, Button, IconButton, LinearProgress, Paper, Stack, Typography} from '@mui/material';
-import Decimal from 'decimal.js';
+import type Decimal from 'decimal.js';
 
+import {categories} from '../data/categories';
+import {transactions} from '../data/transactions';
+import type {Category} from '../types/Category';
+import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
 import {cardStyle} from './cardStyle';
 
-const budgets = [
-    {name: 'Groceries', spent: new Decimal('48.60'), total: new Decimal('100.00'), color: '#3d8064'},
-    {name: 'Dining out', spent: new Decimal('34.00'), total: new Decimal('60.00'), color: '#cf7a31'},
-    {name: 'Transport', spent: new Decimal('2.20'), total: new Decimal('30.00'), color: '#6e62aa'}
-];
+interface Budget {
+    category: Category;
+    spent: Decimal;
+}
+
+const budgets: Budget[] = transactions.reduce((budgets: Budget[], transaction: Transaction) => {
+    const category: Category | undefined = categories.find(
+        (category: Category) => category.id === transaction.categoryId
+    );
+
+    if (category === undefined) throw new Error(`Unknown transaction category: ${transaction.categoryId}`);
+
+    const budget: Budget | undefined = budgets.find((budget: Budget) => budget.category.id === transaction.categoryId);
+
+    if (budget === undefined)
+        budgets.push({
+            category,
+            spent: transaction.amount
+        });
+    else budget.spent = budget.spent.plus(transaction.amount);
+
+    return budgets;
+}, []);
 
 export const WeeklyBudgetsCard = function () {
     return (
@@ -30,24 +52,24 @@ export const WeeklyBudgetsCard = function () {
 
             <Stack spacing={2.5}>
                 {budgets.map((budget) => (
-                    <Box key={budget.name}>
+                    <Box key={budget.category.id}>
                         <Stack direction="row" sx={{justifyContent: 'space-between', mb: 0.75}}>
                             <Typography variant="body2" sx={{fontWeight: 650}}>
-                                {budget.name}
+                                {budget.category.name}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {formatEuro(budget.spent)} / {formatEuro(budget.total)}
+                                {formatEuro(budget.spent)} / {formatEuro(budget.category.total)}
                             </Typography>
                         </Stack>
                         <LinearProgress
                             variant="determinate"
-                            value={budget.spent.dividedBy(budget.total).times(100).toNumber()}
+                            value={budget.spent.dividedBy(budget.category.total).times(100).toNumber()}
                             sx={{
                                 height: 7,
                                 borderRadius: 20,
                                 bgcolor: '#edf0f2',
                                 '& .MuiLinearProgress-bar': {
-                                    bgcolor: budget.color,
+                                    bgcolor: budget.category.color,
                                     borderRadius: 20
                                 }
                             }}
