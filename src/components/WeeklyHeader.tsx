@@ -1,11 +1,10 @@
 import {AddRounded, CalendarMonthRounded} from '@mui/icons-material';
 import {Box, Button, Chip, Stack, Typography} from '@mui/material';
-import {differenceInCalendarDays, endOfISOWeek, format, getISOWeek} from 'date-fns';
+import {differenceInCalendarDays, format, getISOWeek} from 'date-fns';
 
-import {startDate} from '../data/startDate';
+import {endDate, startDate} from '../data/startDate';
 
 export const WeeklyHeader = function () {
-    const endDate: Date = endOfISOWeek(startDate);
     const weekNumber: number = getISOWeek(startDate);
     const remainingDays: number = differenceInCalendarDays(endDate, startDate);
 
