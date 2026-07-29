@@ -1,7 +1,13 @@
 import {AddRounded, CalendarMonthRounded} from '@mui/icons-material';
 import {Box, Button, Chip, Stack, Typography} from '@mui/material';
+import {endOfISOWeek, format, getISOWeek} from 'date-fns';
+
+import {startDate} from '../data/startDate';
 
 export const WeeklyHeader = function () {
+    const endDate: Date = endOfISOWeek(startDate);
+    const weekNumber: number = getISOWeek(startDate);
+
     return (
         <Stack
             direction={{xs: 'column', sm: 'row'}}
@@ -15,7 +21,9 @@ export const WeeklyHeader = function () {
                     </Typography>
                     <Chip label="Mock data" size="small" sx={{bgcolor: '#eceef2', color: '#646b78', fontWeight: 600}} />
                 </Stack>
-                <Typography color="text.secondary">Week 30 · 20–26 July · 4 days left</Typography>
+                <Typography color="text.secondary">
+                    Week {weekNumber} · {format(startDate, 'd')}–{format(endDate, 'd MMMM')} · 4 days left
+                </Typography>
             </Box>
 
             <Stack direction="row" spacing={1.25}>
@@ -24,7 +32,7 @@ export const WeeklyHeader = function () {
                     startIcon={<CalendarMonthRounded />}
                     sx={{borderColor: '#d8dce3', color: '#3b4351', bgcolor: '#fff'}}
                 >
-                    20–26 Jul
+                    {format(startDate, 'd')}–{format(endDate, 'd MMM')}
                 </Button>
                 <Button
                     variant="contained"
