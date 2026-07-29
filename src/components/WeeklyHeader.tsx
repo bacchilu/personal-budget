@@ -1,12 +1,13 @@
 import {AddRounded, CalendarMonthRounded} from '@mui/icons-material';
 import {Box, Button, Chip, Stack, Typography} from '@mui/material';
-import {endOfISOWeek, format, getISOWeek} from 'date-fns';
+import {differenceInCalendarDays, endOfISOWeek, format, getISOWeek} from 'date-fns';
 
 import {startDate} from '../data/startDate';
 
 export const WeeklyHeader = function () {
     const endDate: Date = endOfISOWeek(startDate);
     const weekNumber: number = getISOWeek(startDate);
+    const remainingDays: number = differenceInCalendarDays(endDate, startDate);
 
     return (
         <Stack
@@ -22,7 +23,7 @@ export const WeeklyHeader = function () {
                     <Chip label="Mock data" size="small" sx={{bgcolor: '#eceef2', color: '#646b78', fontWeight: 600}} />
                 </Stack>
                 <Typography color="text.secondary">
-                    Week {weekNumber} · {format(startDate, 'd')}–{format(endDate, 'd MMMM')} · 4 days left
+                    Week {weekNumber} · {format(startDate, 'd')}–{format(endDate, 'd MMMM')} · {remainingDays} days left
                 </Typography>
             </Box>
 

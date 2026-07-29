@@ -1,7 +1,9 @@
 import {Avatar, Box, Divider, Paper, Stack, Typography} from '@mui/material';
+import {endOfISOWeek, format} from 'date-fns';
 import Decimal from 'decimal.js';
 
 import {categories} from '../data/categories';
+import {startDate} from '../data/startDate';
 import {transactions} from '../data/transactions';
 import type {Category} from '../types/Category';
 import type {Transaction} from '../types/Transaction';
@@ -10,6 +12,7 @@ import {calculateTransactionsTotal} from '../utils/transactionCalculations';
 import {cardStyle} from './cardStyle';
 
 export const WeeklyTransactionsCard = function () {
+    const endDate: Date = endOfISOWeek(startDate);
     const total: Decimal = calculateTransactionsTotal(transactions);
 
     return (
@@ -19,7 +22,8 @@ export const WeeklyTransactionsCard = function () {
                     This week's transactions
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Monday 20 – Sunday 26 July · {transactions.length} transactions · total {formatEuro(total)}
+                    {format(startDate, 'EEEE d')} – {format(endDate, 'EEEE d MMMM')} · {transactions.length}{' '}
+                    transactions · total {formatEuro(total)}
                 </Typography>
             </Box>
             <Divider />

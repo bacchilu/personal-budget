@@ -1,8 +1,10 @@
 import {MoreHorizRounded} from '@mui/icons-material';
 import {Box, Button, IconButton, LinearProgress, Paper, Stack, Typography} from '@mui/material';
+import {endOfISOWeek, format} from 'date-fns';
 import type Decimal from 'decimal.js';
 
 import {categories} from '../data/categories';
+import {startDate} from '../data/startDate';
 import {transactions} from '../data/transactions';
 import type {Category} from '../types/Category';
 import type {Transaction} from '../types/Transaction';
@@ -34,6 +36,8 @@ const budgets: Budget[] = transactions.reduce((budgets: Budget[], transaction: T
 }, []);
 
 export const WeeklyBudgetsCard = function () {
+    const endDate: Date = endOfISOWeek(startDate);
+
     return (
         <Paper variant="outlined" sx={{...cardStyle, p: 3}}>
             <Stack direction="row" sx={{alignItems: 'center', justifyContent: 'space-between', mb: 2.5}}>
@@ -42,7 +46,7 @@ export const WeeklyBudgetsCard = function () {
                         Weekly budgets
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Limits for 20–26 July
+                        Limits for {format(startDate, 'd')}–{format(endDate, 'd MMMM')}
                     </Typography>
                 </Box>
                 <IconButton aria-label="More budget options" size="small">
