@@ -11,13 +11,20 @@ import {
     Toolbar,
     Typography
 } from '@mui/material';
+import {Navigate, NavLink, Route, Routes} from 'react-router';
 
-import {SpendingPaceCard} from './components/SpendingPaceCard';
-import {UpcomingExpensesCard} from './components/UpcomingExpensesCard';
-import {WeeklyBudgetCard} from './components/WeeklyBudgetCard';
-import {WeeklyBudgetsCard} from './components/WeeklyBudgetsCard';
-import {WeeklyHeader} from './components/WeeklyHeader';
-import {WeeklyTransactionsCard} from './components/WeeklyTransactionsCard';
+import {BudgetsPage} from './pages/BudgetsPage';
+import {OverviewPage} from './pages/OverviewPage';
+import {TransactionsPage} from './pages/TransactionsPage';
+
+const navigationButtonStyle = {
+    color: 'text.secondary',
+    px: 2,
+    '&.active': {
+        color: '#254b41',
+        bgcolor: '#eaf2ef'
+    }
+};
 
 export const App = function () {
     return (
@@ -44,9 +51,15 @@ export const App = function () {
                                 spacing={0.5}
                                 sx={{ml: 4, display: {xs: 'none', md: 'flex'}, flexGrow: 1}}
                             >
-                                <Button sx={{color: '#254b41', bgcolor: '#eaf2ef', px: 2}}>Overview</Button>
-                                <Button sx={{color: 'text.secondary', px: 2}}>Transactions</Button>
-                                <Button sx={{color: 'text.secondary', px: 2}}>Budgets</Button>
+                                <Button component={NavLink} to="/overview" sx={navigationButtonStyle}>
+                                    Overview
+                                </Button>
+                                <Button component={NavLink} to="/transactions" sx={navigationButtonStyle}>
+                                    Transactions
+                                </Button>
+                                <Button component={NavLink} to="/budgets" sx={navigationButtonStyle}>
+                                    Budgets
+                                </Button>
                             </Stack>
 
                             <Box sx={{flexGrow: {xs: 1, md: 0}}} />
@@ -61,37 +74,13 @@ export const App = function () {
                 </AppBar>
 
                 <Box component="main">
-                    <Container maxWidth="lg" sx={{py: {xs: 3, md: 5}}}>
-                        <Stack spacing={3}>
-                            <WeeklyHeader />
-                            <Box
-                                sx={{
-                                    display: 'grid',
-                                    gridTemplateColumns: {xs: '1fr', md: 'minmax(0, 1.7fr) minmax(280px, 1fr)'},
-                                    gap: 3
-                                }}
-                            >
-                                <WeeklyBudgetCard />
-                                <SpendingPaceCard />
-                            </Box>
-
-                            <Box
-                                sx={{
-                                    display: 'grid',
-                                    gridTemplateColumns: {xs: '1fr', md: 'minmax(0, 1.7fr) minmax(280px, 1fr)'},
-                                    gap: 3,
-                                    alignItems: 'start'
-                                }}
-                            >
-                                <WeeklyTransactionsCard />
-
-                                <Stack spacing={3}>
-                                    <WeeklyBudgetsCard />
-                                    <UpcomingExpensesCard />
-                                </Stack>
-                            </Box>
-                        </Stack>
-                    </Container>
+                    <Routes>
+                        <Route path="/" element={<Navigate to="/overview" replace />} />
+                        <Route path="/overview" element={<OverviewPage />} />
+                        <Route path="/transactions" element={<TransactionsPage />} />
+                        <Route path="/budgets" element={<BudgetsPage />} />
+                        <Route path="*" element={<Navigate to="/overview" replace />} />
+                    </Routes>
                 </Box>
             </Box>
         </>
