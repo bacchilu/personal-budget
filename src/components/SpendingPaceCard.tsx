@@ -1,15 +1,16 @@
 import {Box, Chip, LinearProgress, Paper, Stack, Typography} from '@mui/material';
 import type Decimal from 'decimal.js';
 
+import {calculateRemainingDays} from '../data/startDate';
 import {transactions} from '../data/transactions';
 import {weeklyLimit} from '../data/weeklyLimit';
 import {formatEuro} from '../utils/formatEuro';
-import {calculateRemainingDays, calculateTransactionsTotal} from '../utils/transactionCalculations';
+import {calculateTransactionsTotal} from '../utils/transactionCalculations';
 import {cardStyle} from './cardStyle';
 
 export const SpendingPaceCard = function () {
     const spent: Decimal = calculateTransactionsTotal(transactions);
-    const remainingDays: number = calculateRemainingDays(transactions);
+    const remainingDays: number = calculateRemainingDays();
     const remaining: Decimal = weeklyLimit.minus(spent);
     const spendingPercentage: Decimal = spent.dividedBy(weeklyLimit).times(100).toDecimalPlaces(0);
     const dailyAllowance: Decimal = remaining.dividedBy(remainingDays);

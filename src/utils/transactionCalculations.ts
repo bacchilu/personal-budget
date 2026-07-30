@@ -8,9 +8,3 @@ export const calculateTransactionsTotal = function (transactions: readonly Trans
         new Decimal(0)
     );
 };
-
-export const calculateRemainingDays = function (transactions: readonly Transaction[]): number {
-    void transactions;
-
-    return 4;
-};
