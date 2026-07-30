@@ -4,7 +4,7 @@ import type {CategoryId} from './Category';
 
 export interface Transaction {
     merchant: string;
-    detail: string;
+    date: Date;
     amount: Decimal;
     categoryId: CategoryId;
 }

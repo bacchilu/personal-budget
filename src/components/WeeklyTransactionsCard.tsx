@@ -60,7 +60,7 @@ export const WeeklyTransactionsCard = function () {
                                     {transaction.merchant}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" noWrap>
-                                    {category.name} · {transaction.detail}
+                                    {category.name} · {format(transaction.date, 'EEEE, HH:mm')}
                                 </Typography>
                             </Box>
                             <Typography sx={{fontWeight: 750, whiteSpace: 'nowrap', color: '#303744'}}>
