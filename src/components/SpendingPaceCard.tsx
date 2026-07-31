@@ -11,9 +11,12 @@ import {cardStyle} from './cardStyle';
 
 export const SpendingPaceCard = function () {
     const transactions: Transaction[] = useTransactions();
-    const weeklyLimit: Decimal = useWeeklyLimit();
+    const {weeklyLimit} = useWeeklyLimit();
     const spent: Decimal = calculateTransactionsTotal(transactions);
     const remainingDays: number = calculateRemainingDays();
+
+    if (weeklyLimit === undefined) return null;
+
     const remaining: Decimal = weeklyLimit.minus(spent);
     const spendingPercentage: Decimal = spent.dividedBy(weeklyLimit).times(100).toDecimalPlaces(0);
     const dailyAllowance: Decimal = remaining.dividedBy(remainingDays);

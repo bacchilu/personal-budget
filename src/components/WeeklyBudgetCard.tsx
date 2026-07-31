@@ -11,8 +11,10 @@ import {cardStyle} from './cardStyle';
 
 export const WeeklyBudgetCard = function () {
     const transactions: Transaction[] = useTransactions();
-    const weeklyLimit: Decimal = useWeeklyLimit();
+    const {weeklyLimit} = useWeeklyLimit();
     const spent: Decimal = calculateTransactionsTotal(transactions);
+
+    if (weeklyLimit === undefined) return null;
 
     return (
         <Paper
