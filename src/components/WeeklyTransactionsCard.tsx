@@ -1,4 +1,4 @@
-import {Avatar, Box, Divider, Paper, Stack, Typography} from '@mui/material';
+import {Avatar, Box, Divider, Stack, Typography} from '@mui/material';
 import {format} from 'date-fns';
 import Decimal from 'decimal.js';
 
@@ -9,7 +9,7 @@ import type {Category} from '../types/Category';
 import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
 import {calculateTransactionsTotal} from '../utils/transactionCalculations';
-import {cardStyle} from './cardStyle';
+import {Panel} from './Panel';
 
 export const WeeklyTransactionsCard = function () {
     const categories: Category[] = useCategories();
@@ -17,7 +17,7 @@ export const WeeklyTransactionsCard = function () {
     const total: Decimal = calculateTransactionsTotal(transactions);
 
     return (
-        <Paper variant="outlined" sx={{...cardStyle, overflow: 'hidden'}}>
+        <Panel sx={{overflow: 'hidden'}}>
             <Box sx={{px: {xs: 2.5, sm: 3}, py: 2.5}}>
                 <Typography variant="h6" component="h2" sx={{fontWeight: 750}}>
                     This week's transactions
@@ -73,6 +73,6 @@ export const WeeklyTransactionsCard = function () {
                     </Box>
                 );
             })}
-        </Paper>
+        </Panel>
     );
 };

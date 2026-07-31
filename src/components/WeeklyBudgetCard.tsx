@@ -1,5 +1,5 @@
 import {CalendarMonthRounded, ReceiptLongRounded, TrendingDownRounded} from '@mui/icons-material';
-import {Box, Divider, Paper, Stack, Typography} from '@mui/material';
+import {Box, Divider, Stack, Typography} from '@mui/material';
 import type Decimal from 'decimal.js';
 
 import {useTransactions} from '../data/transactions';
@@ -7,7 +7,7 @@ import {useWeeklyLimit} from '../data/weeklyLimit';
 import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
 import {calculateTransactionsTotal} from '../utils/transactionCalculations';
-import {cardStyle} from './cardStyle';
+import {PrimaryPanel} from './Panel';
 
 export const WeeklyBudgetCard = function () {
     const transactions: Transaction[] = useTransactions();
@@ -17,17 +17,7 @@ export const WeeklyBudgetCard = function () {
     if (weeklyLimit === undefined) return null;
 
     return (
-        <Paper
-            variant="outlined"
-            sx={{
-                ...cardStyle,
-                p: {xs: 3, md: 4},
-                color: '#fff',
-                bgcolor: '#254b41',
-                borderColor: '#254b41',
-                backgroundImage: 'radial-gradient(circle at 92% 18%, rgba(180, 221, 202, 0.22), transparent 28%)'
-            }}
-        >
+        <PrimaryPanel>
             <Typography sx={{color: '#c8ddd6', fontWeight: 600}}>Left in this week's budget</Typography>
             <Typography variant="h2" component="p" sx={{fontWeight: 750, letterSpacing: '-0.04em', mt: 1, mb: 3}}>
                 {formatEuro(weeklyLimit.minus(spent))}
@@ -63,6 +53,6 @@ export const WeeklyBudgetCard = function () {
                     <Typography sx={{fontWeight: 700, mt: 0.5}}>{transactions.length} this week</Typography>
                 </Box>
             </Box>
-        </Paper>
+        </PrimaryPanel>
     );
 };

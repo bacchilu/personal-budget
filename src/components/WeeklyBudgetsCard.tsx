@@ -1,5 +1,5 @@
 import {MoreHorizRounded} from '@mui/icons-material';
-import {Box, Button, IconButton, LinearProgress, Paper, Stack, Typography} from '@mui/material';
+import {Box, Button, IconButton, LinearProgress, Stack, Typography} from '@mui/material';
 import {format} from 'date-fns';
 import type Decimal from 'decimal.js';
 
@@ -9,7 +9,7 @@ import {useTransactions} from '../data/transactions';
 import type {Category} from '../types/Category';
 import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
-import {cardStyle} from './cardStyle';
+import {Panel} from './Panel';
 
 interface Budget {
     category: Category;
@@ -41,7 +41,7 @@ export const WeeklyBudgetsCard = function () {
     }, []);
 
     return (
-        <Paper variant="outlined" sx={{...cardStyle, p: 3}}>
+        <Panel sx={{p: 3}}>
             <Stack direction="row" sx={{alignItems: 'center', justifyContent: 'space-between', mb: 2.5}}>
                 <Box>
                     <Typography variant="h6" component="h2" sx={{fontWeight: 750}}>
@@ -86,6 +86,6 @@ export const WeeklyBudgetsCard = function () {
             <Button size="small" sx={{color: '#315e52', mt: 2.5, px: 0}}>
                 Review all budgets
             </Button>
-        </Paper>
+        </Panel>
     );
 };

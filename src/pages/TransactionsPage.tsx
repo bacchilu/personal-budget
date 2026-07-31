@@ -1,11 +1,13 @@
-import {Container, Typography} from '@mui/material';
+import {Typography} from '@mui/material';
+
+import {Page} from './Page';
 
 export const TransactionsPage = function () {
     return (
-        <Container maxWidth="lg" sx={{py: {xs: 3, md: 5}}}>
+        <Page>
             <Typography variant="h4" component="h1" sx={{fontWeight: 750, letterSpacing: '-0.03em'}}>
                 Transactions
             </Typography>
-        </Container>
+        </Page>
     );
 };

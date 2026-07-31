@@ -1,4 +1,4 @@
-import {Box, Chip, LinearProgress, Paper, Stack, Typography} from '@mui/material';
+import {Box, Chip, LinearProgress, Stack, Typography} from '@mui/material';
 import type Decimal from 'decimal.js';
 
 import {calculateRemainingDays} from '../data/startDate';
@@ -7,7 +7,7 @@ import {useWeeklyLimit} from '../data/weeklyLimit';
 import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
 import {calculateTransactionsTotal} from '../utils/transactionCalculations';
-import {cardStyle} from './cardStyle';
+import {Panel} from './Panel';
 
 export const SpendingPaceCard = function () {
     const transactions: Transaction[] = useTransactions();
@@ -22,7 +22,7 @@ export const SpendingPaceCard = function () {
     const dailyAllowance: Decimal = remaining.dividedBy(remainingDays);
 
     return (
-        <Paper variant="outlined" sx={{...cardStyle, p: {xs: 3, md: 4}}}>
+        <Panel sx={{p: {xs: 3, md: 4}}}>
             <Typography variant="overline" sx={{color: 'text.secondary', fontWeight: 700, letterSpacing: 1}}>
                 Spending pace
             </Typography>
@@ -63,6 +63,6 @@ export const SpendingPaceCard = function () {
                     <Typography sx={{fontWeight: 700}}>{formatEuro(weeklyLimit)}</Typography>
                 </Box>
             </Stack>
-        </Paper>
+        </Panel>
     );
 };
