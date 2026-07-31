@@ -11,7 +11,7 @@ const randomDateBetween = function (start: Date, end: Date): Date {
     return new Date(randomTime);
 };
 
-export const transactions: Transaction[] = [
+const transactions: Transaction[] = [
     {
         merchant: 'Coop supermarket',
         date: randomDateBetween(startDate, endDate),
@@ -37,3 +37,7 @@ export const transactions: Transaction[] = [
         categoryId: 'transport'
     }
 ];
+
+export const useTransactions = function (): Transaction[] {
+    return transactions;
+};

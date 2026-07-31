@@ -2,9 +2,9 @@ import {Avatar, Box, Divider, Paper, Stack, Typography} from '@mui/material';
 import {format} from 'date-fns';
 import Decimal from 'decimal.js';
 
-import {categories} from '../data/categories';
+import {useCategories} from '../data/categories';
 import {endDate, startDate} from '../data/startDate';
-import {transactions} from '../data/transactions';
+import {useTransactions} from '../data/transactions';
 import type {Category} from '../types/Category';
 import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
@@ -12,6 +12,8 @@ import {calculateTransactionsTotal} from '../utils/transactionCalculations';
 import {cardStyle} from './cardStyle';
 
 export const WeeklyTransactionsCard = function () {
+    const categories: Category[] = useCategories();
+    const transactions: Transaction[] = useTransactions();
     const total: Decimal = calculateTransactionsTotal(transactions);
 
     return (

@@ -1,3 +1,7 @@
 import Decimal from 'decimal.js';
 
-export const weeklyLimit: Decimal = new Decimal('210.00');
+const weeklyLimit: Decimal = new Decimal('210.00');
+
+export const useWeeklyLimit = function (): Decimal {
+    return weeklyLimit;
+};

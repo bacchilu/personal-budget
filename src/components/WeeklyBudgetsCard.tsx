@@ -3,9 +3,9 @@ import {Box, Button, IconButton, LinearProgress, Paper, Stack, Typography} from 
 import {format} from 'date-fns';
 import type Decimal from 'decimal.js';
 
-import {categories} from '../data/categories';
+import {useCategories} from '../data/categories';
 import {endDate, startDate} from '../data/startDate';
-import {transactions} from '../data/transactions';
+import {useTransactions} from '../data/transactions';
 import type {Category} from '../types/Category';
 import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
@@ -16,26 +16,30 @@ interface Budget {
     spent: Decimal;
 }
 
-const budgets: Budget[] = transactions.reduce((budgets: Budget[], transaction: Transaction) => {
-    const category: Category | undefined = categories.find(
-        (category: Category) => category.id === transaction.categoryId
-    );
-
-    if (category === undefined) throw new Error(`Unknown transaction category: ${transaction.categoryId}`);
-
-    const budget: Budget | undefined = budgets.find((budget: Budget) => budget.category.id === transaction.categoryId);
-
-    if (budget === undefined)
-        budgets.push({
-            category,
-            spent: transaction.amount
-        });
-    else budget.spent = budget.spent.plus(transaction.amount);
-
-    return budgets;
-}, []);
-
 export const WeeklyBudgetsCard = function () {
+    const categories: Category[] = useCategories();
+    const transactions: Transaction[] = useTransactions();
+    const budgets: Budget[] = transactions.reduce((budgets: Budget[], transaction: Transaction) => {
+        const category: Category | undefined = categories.find(
+            (category: Category) => category.id === transaction.categoryId
+        );
+
+        if (category === undefined) throw new Error(`Unknown transaction category: ${transaction.categoryId}`);
+
+        const budget: Budget | undefined = budgets.find(
+            (budget: Budget) => budget.category.id === transaction.categoryId
+        );
+
+        if (budget === undefined)
+            budgets.push({
+                category,
+                spent: transaction.amount
+            });
+        else budget.spent = budget.spent.plus(transaction.amount);
+
+        return budgets;
+    }, []);
+
     return (
         <Paper variant="outlined" sx={{...cardStyle, p: 3}}>
             <Stack direction="row" sx={{alignItems: 'center', justifyContent: 'space-between', mb: 2.5}}>

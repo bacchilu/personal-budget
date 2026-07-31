@@ -2,13 +2,16 @@ import {CalendarMonthRounded, ReceiptLongRounded, TrendingDownRounded} from '@mu
 import {Box, Divider, Paper, Stack, Typography} from '@mui/material';
 import type Decimal from 'decimal.js';
 
-import {transactions} from '../data/transactions';
-import {weeklyLimit} from '../data/weeklyLimit';
+import {useTransactions} from '../data/transactions';
+import {useWeeklyLimit} from '../data/weeklyLimit';
+import type {Transaction} from '../types/Transaction';
 import {formatEuro} from '../utils/formatEuro';
 import {calculateTransactionsTotal} from '../utils/transactionCalculations';
 import {cardStyle} from './cardStyle';
 
 export const WeeklyBudgetCard = function () {
+    const transactions: Transaction[] = useTransactions();
+    const weeklyLimit: Decimal = useWeeklyLimit();
     const spent: Decimal = calculateTransactionsTotal(transactions);
 
     return (

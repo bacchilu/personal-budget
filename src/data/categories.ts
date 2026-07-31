@@ -8,7 +8,7 @@ import Decimal from 'decimal.js';
 
 import type {Category} from '../types/Category';
 
-export const categories: Category[] = [
+const categories: Category[] = [
     {
         id: 'groceries',
         name: 'Groceries',
@@ -42,3 +42,7 @@ export const categories: Category[] = [
         total: new Decimal('30.00')
     }
 ];
+
+export const useCategories = function (): Category[] {
+    return categories;
+};
