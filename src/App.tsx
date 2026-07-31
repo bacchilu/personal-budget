@@ -15,6 +15,7 @@ import {Navigate, NavLink, Route, Routes} from 'react-router';
 
 import {BudgetsPage} from './pages/BudgetsPage';
 import {OverviewPage} from './pages/OverviewPage';
+import {SettingsPage} from './pages/SettingsPage';
 import {TransactionsPage} from './pages/TransactionsPage';
 
 const navigationButtonStyle = {
@@ -66,7 +67,15 @@ export const App = function () {
                             <IconButton aria-label="Notifications" sx={{color: 'text.secondary'}}>
                                 <NotificationsNoneRounded />
                             </IconButton>
-                            <IconButton aria-label="Settings" sx={{color: 'text.secondary'}}>
+                            <IconButton
+                                component={NavLink}
+                                to="/settings"
+                                aria-label="Settings"
+                                sx={{
+                                    color: 'text.secondary',
+                                    '&.active': {color: '#254b41', bgcolor: '#eaf2ef'}
+                                }}
+                            >
                                 <SettingsRounded />
                             </IconButton>
                         </Toolbar>
@@ -79,6 +88,7 @@ export const App = function () {
                         <Route path="/overview" element={<OverviewPage />} />
                         <Route path="/transactions" element={<TransactionsPage />} />
                         <Route path="/budgets" element={<BudgetsPage />} />
+                        <Route path="/settings" element={<SettingsPage />} />
                         <Route path="*" element={<Navigate to="/overview" replace />} />
                     </Routes>
                 </Box>
